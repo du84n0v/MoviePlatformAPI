@@ -20,7 +20,6 @@ public class Movie {
 
     public Movie(){
         this.id = counter ++;
-
     }
 
 }

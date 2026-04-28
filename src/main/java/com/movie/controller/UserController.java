@@ -30,8 +30,14 @@ public class UserController {
     @GetMapping("/by-id/{userId}")
     public User getUserById(@PathVariable Integer userId){
         for(User user :users){
-            if(Objects.equals(user.getId(), userId)) return user;
+            if(user.getId() == userId) return user;
         }
         return null;
     }
+
+    @DeleteMapping("/delete/{userId}")
+    public Boolean deleteUserById(@PathVariable Integer userId){
+        return users.removeIf(user -> user.getId() == userId);
+    }
+
 }

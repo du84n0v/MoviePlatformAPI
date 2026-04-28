@@ -14,7 +14,7 @@ public class User {
     private String email;
     private Roles role;
 
-    public User(){
+    public void setId(){
         this.id = counter ++;
     }
 }

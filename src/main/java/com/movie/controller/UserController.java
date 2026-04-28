@@ -16,6 +16,11 @@ public class UserController {
 
     @PostMapping("/create")
     public User createUser(@RequestBody User user){
+        for(User uu :users){
+            if(uu.getEmail().equals(user.getEmail())){
+                return null;
+            }
+        }
         user.setId();
         user.setRole(Roles.USER);
         users.add(user);

@@ -14,11 +14,11 @@ public class Movie {
     private Integer id;
     private String title;
     private String genre;
-    private LocalDate releaseYear;
+    private String releaseYear;
     private Double rating;
     private Integer createdBy;
 
-    public Movie(){
+    public void setId(){
         this.id = counter ++;
     }
 

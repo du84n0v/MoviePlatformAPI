@@ -14,7 +14,7 @@ public class Review {
     private Integer rating;
     private String comment;
 
-    public Review(){
+    public void setId(){
         this.id = counter ++;
     }
 }

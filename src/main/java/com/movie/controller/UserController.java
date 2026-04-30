@@ -2,6 +2,8 @@ package com.movie.controller;
 
 import com.movie.dto.User;
 import com.movie.enums.Roles;
+import com.movie.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,19 +14,12 @@ import java.util.Objects;
 @RequestMapping("users")
 public class UserController {
 
-    private List<User> users = new ArrayList<>();
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/create")
     public User createUser(@RequestBody User user){
-        for(User uu :users){
-            if(uu.getEmail().equals(user.getEmail())){
-                return null;
-            }
-        }
-        user.setId();
-        user.setRole(Roles.USER);
-        users.add(user);
-        return user;
+        return userService.createStudent(user);
     }
 
     @GetMapping("/list")

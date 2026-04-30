@@ -3,14 +3,14 @@ package com.movie.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import lombok.Getter;
 import lombok.Setter;
+import org.jspecify.annotations.NonNull;
 
 @Getter
 @Setter
 
-public class Movie {
+public class Movie implements Comparable<Movie> {
     private static Integer counter = 0;
     private Integer id;
     @NotBlank(message = "title should not be empty")
@@ -26,4 +26,8 @@ public class Movie {
         this.id = counter ++;
     }
 
+    @Override
+    public int compareTo(@NonNull Movie other) {
+        return -this.getRating().compareTo(other.rating);
+    }
 }

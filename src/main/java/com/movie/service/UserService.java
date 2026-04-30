@@ -1,10 +1,12 @@
 package com.movie.service;
 
 import com.movie.dto.User;
+import com.movie.dto.UserActivityDto;
 import com.movie.enums.Roles;
 import com.movie.exeption.EmailAlreadyExistException;
 import com.movie.exeption.UserNotFoundException;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +17,11 @@ import java.util.List;
 @Service
 public class UserService {
     private final List<User> users = new ArrayList<>();
+
+    @Autowired
+    private MovieService movieService;
+    @Autowired
+    private ReviewService reviewService;
 
 
     public User createStudent(User user) {
@@ -44,5 +51,10 @@ public class UserService {
             }
         }
         throw new UserNotFoundException("User not found");
+    }
+
+    public UserActivityDto getUserActivity(Integer userId) {
+        getUserById(userId);
+        return new UserActivityDto(reviewService.getUserReviewNumber(userId), movieService.getUserMovieNumber(userId));
     }
 }

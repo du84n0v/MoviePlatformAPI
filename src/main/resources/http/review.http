@@ -38,7 +38,7 @@ Content-Type: application/json
 
 {
   "userId": 1,
-  "movieId": 0,
+  "movieId": 2,
   "rating": 4.8,
   "comment": "Vizual effektlar va musiqa a'lo darajada."
 }
@@ -67,3 +67,4 @@ Content-Type: application/json
 
 ###get movie review
 GET localhost:8080/reviews/by-movie-id/3
+

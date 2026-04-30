@@ -63,7 +63,10 @@ GET localhost:8080/movie/by-id/1
 DELETE localhost:8080/movie/delete/2
 
 ###search
-GET localhost:8080/movie/search/"Act"
+GET localhost:8080/movie/search/Act
+
+###get top 5 movies
+GET localhost:8080/movie/top
 
 
 

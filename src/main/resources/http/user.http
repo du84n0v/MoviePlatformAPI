@@ -36,3 +36,6 @@ DELETE localhost:8080/users/delete/3
 
 ###delete user
 DELETE localhost:8080/users/delete/1
+
+###get user activity
+GET localhost:8080/users/activity/9

@@ -34,4 +34,9 @@ public class UserController {
         return ResponseEntity.ok(userService.deleteUserById(userId));
     }
 
+    @GetMapping("/activity/{userId}")
+    public ResponseEntity<?> userActivity(@PathVariable Integer userId){
+        return ResponseEntity.ok(userService.getUserActivity(userId));
+    }
+
 }

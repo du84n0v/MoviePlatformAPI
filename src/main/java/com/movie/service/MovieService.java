@@ -3,11 +3,11 @@ package com.movie.service;
 import com.movie.dto.Movie;
 import com.movie.exeption.MovieNotFoundException;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Getter
 
@@ -47,5 +47,30 @@ public class MovieService {
                                 movie.getGenre().contains(request) ||
                                 movie.getReleaseYear().contains(request)
                 ).toList();
+    }
+
+    public void updateMovieRatingById(@NotNull Integer movieId, double newRating) {
+        for (Movie movie : movies) {
+            if(movie.getId().equals(movieId)){
+                movie.setRating(newRating);
+                return;
+            }
+        }
+        throw new MovieNotFoundException("Movie not found");
+    }
+
+    public List<Movie> getTop5Movies() {
+        List<Movie> result = new LinkedList<>();
+        Collections.sort(movies);
+        for(int i = 0; i < Math.max(movies.size(), 5); ++ i){
+            result.add(movies.get(i));
+        }
+        return result;
+    }
+
+    public Long getUserMovieNumber(Integer userId) {
+        return movies.stream()
+                .filter(movie -> movie.getCreatedBy().equals(userId))
+                .count();
     }
 }

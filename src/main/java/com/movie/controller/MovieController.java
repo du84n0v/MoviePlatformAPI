@@ -39,5 +39,10 @@ public class MovieController {
         return ResponseEntity.ok(movieService.searchMovie(request));
     }
 
+    @GetMapping("/top")
+    public ResponseEntity<?> top5Movies(){
+        return ResponseEntity.ok(movieService.getTop5Movies());
+    }
+
 
 }

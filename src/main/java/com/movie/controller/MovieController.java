@@ -36,5 +36,15 @@ public class MovieController {
         return movies.removeIf(movie -> movie.getId() == movieId);
     }
 
+    @GetMapping("/search/{request}")
+    public List<Movie> searchMovie(@PathVariable String request){
+        return movies.stream()
+                .filter(movie ->
+                    movie.getTitle().contains(request) ||
+                            movie.getGenre().contains(request) ||
+                            movie.getReleaseYear().contains(request)
+                ).toList();
+    }
+
 
 }

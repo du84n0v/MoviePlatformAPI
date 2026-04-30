@@ -1,0 +1,195 @@
+# 🎬 Movie Platform REST API (List-based, Database siz)
+
+## 🎯 Maqsad
+
+Spring Boot yordamida REST API yozish. Ma’lumotlar bazasi ishlatilmaydi — barcha ma’lumotlar **xotirada (`List`) saqlanadi**.
+
+---
+
+## 📌 Umumiy talablar
+
+* Barcha ma’lumotlar `List<>` ichida saqlansin (DB yo‘q)
+* ID larni o‘zing generate qil (masalan: `AtomicLong` yoki oddiy counter)
+* Layered architecture ishlatilsin:
+
+  * Controller
+  * Service
+  * Model
+* DTO (Request/Response) ishlatish majburiy
+* Barcha endpointlar JSON qaytarsin
+
+---
+
+## 🧱 Model (Entity) lar
+
+### 1. User
+
+* id
+* fullName
+* email
+* role (ADMIN, USER)
+
+### 2. Movie
+
+* id
+* title
+* genre
+* releaseYear
+* rating (double)
+* createdBy (userId)
+
+### 3. Review
+
+* id
+* userId
+* movieId
+* rating (1–5)
+* comment
+
+---
+
+## ⚙️ Vazifalar
+
+### 1. User API
+
+Quyidagi endpointlarni yozing:
+
+* POST `/users` → yangi user qo‘shish
+* GET `/users` → barcha userlar ro‘yxati
+* GET `/users/{id}` → bitta user
+
+Qoida:
+
+* email unique bo‘lishi kerak
+
+---
+
+### 2. Movie API
+
+Quyidagi endpointlarni yozing:
+
+* POST `/movies` → yangi movie qo‘shish
+* GET `/movies` → barcha movie lar
+* GET `/movies/{id}` → bitta movie detail
+* DELETE `/movies/{id}` → movie o‘chirish
+
+Qoidalar:
+
+* faqat ADMIN movie qo‘sha oladi
+* faqat ADMIN movie o‘chira oladi
+
+---
+
+### 3. Review API
+
+Quyidagi endpointlarni yozing:
+
+* POST `/reviews` → review qo‘shish
+* GET `/movies/{id}/reviews` → movie ga tegishli reviewlar
+
+Qoidalar:
+
+* har bir user bitta movie ga faqat 1 ta review yozishi mumkin
+* rating 1 dan 5 gacha bo‘lishi kerak
+
+---
+
+### 4. Search va Filter API (MUHIM)
+
+Quyidagi endpointni yozing:
+
+GET `/movies/search`
+
+Query parametrlar:
+
+* title (optional)
+* genre (optional)
+* minRating (optional)
+* year (optional)
+
+Talab:
+
+* filter qilish `List` va `stream()` orqali amalga oshirilsin
+
+---
+
+### 5. Movie Rating hisoblash
+
+* Har safar yangi review qo‘shilganda:
+
+  * shu movie uchun barcha review lar olinadi
+  * o‘rtacha qiymat hisoblanadi
+  * movie.rating yangilanadi
+
+---
+
+### 6. Top Movies API
+
+Quyidagi endpointni yozing:
+
+* GET `/movies/top`
+
+Talab:
+
+* eng yuqori rating ga ega 5 ta movie qaytarsin
+
+---
+
+### 7. User Activity API
+
+Quyidagi endpointni yozing:
+
+* GET `/users/{id}/activity`
+
+Natija quyidagilarni o‘z ichiga oladi:
+
+* user nechta review yozgan
+* user nechta movie qo‘shgan
+
+---
+
+### 8. Validation
+
+Quyidagi tekshiruvlarni yozing:
+
+* title bo‘sh bo‘lmasin
+* rating 1–5 oralig‘ida bo‘lsin
+* email formatida `@` bo‘lishi kerak
+
+---
+
+### 9. Exception Handling
+
+Custom exceptionlar yarating:
+
+* UserNotFoundException
+* MovieNotFoundException
+* ValidationException
+
+Global exception handler yozing
+
+---
+
+### 10. Response Wrapper (MUHIM)
+
+Barcha API lar quyidagi formatda javob qaytarsin:
+
+```json
+{
+  "success": true,
+  "data": {},
+  "message": "OK"
+}
+```
+
+---
+
+## 📤 Topshirish talablari
+
+* GitHub repository
+* README fayl:
+
+  * qanday ishga tushirish
+  * endpointlar ro‘yxati
+* Postman collection
+

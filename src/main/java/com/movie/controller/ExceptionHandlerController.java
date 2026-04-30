@@ -1,6 +1,6 @@
 package com.movie.controller;
 
-import com.movie.exeption.ItemNotFoundException;
+import com.movie.exeption.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,9 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler({IllegalArgumentException.class, ItemNotFoundException.class})
+    @ExceptionHandler({ItemNotFoundException.class, UserNotFoundException.class,
+            EmailAlreadyExistException.class, MovieNotFoundException.class,
+            DuplicateReviewException.class})
     public ResponseEntity<String> handle(RuntimeException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }

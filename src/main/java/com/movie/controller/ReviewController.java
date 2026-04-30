@@ -1,6 +1,10 @@
 package com.movie.controller;
 
 import com.movie.dto.Review;
+import com.movie.service.ReviewService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,25 +14,17 @@ import java.util.List;
 @RequestMapping("reviews")
 public class ReviewController {
 
-    public static List<Review> reviews = new ArrayList<>();
+    @Autowired
+    private ReviewService reviewService;
 
     @PostMapping("/create")
-    public Review createReview(@RequestBody Review review){
-        for (Review review1 : reviews) {
-            if(review1.getMovieId() == review.getId() && review1.getUserId() == review.getUserId()) return null;
-        }
-        review.setId();
-        reviews.add(review);
-        return review;
+    public ResponseEntity<?> createReview(@Valid @RequestBody Review review){
+        return ResponseEntity.ok(reviewService.createReview(review));
     }
 
     @GetMapping("/by-movie-id/{movieId}")
-    public List<Review> getMovieReviews(@PathVariable Integer movieId){
-        List<Review> response = new ArrayList<>();
-        for (Review review : reviews) {
-            if(review.getMovieId() == movieId) response.add(review);
-        }
-        return response;
+    public ResponseEntity<?> getMovieReviews(@PathVariable Integer movieId){
+        return ResponseEntity.ok(reviewService.getMovieCommentsByMovieId(movieId));
     }
 
 

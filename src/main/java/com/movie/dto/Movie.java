@@ -17,7 +17,6 @@ public class Movie {
     private String title;
     @NotBlank(message = "Genre should be empty")
     private String genre;
-    @Past
     private String releaseYear;
     private Double rating;
     @NotNull
